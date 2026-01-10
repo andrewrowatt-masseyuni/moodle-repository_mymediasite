@@ -36,7 +36,7 @@ class util {
 
         foreach ($presentations['value'] as $presentation) {
             // Process each presentation as needed.
-            $duration = isset($presentation['Duration']) ? $presentation['Duration'] : 0;
+            $duration = $presentation['Duration'] ?? 0;
 
             $listitem = [
                 'title' => $presentation['Title'],
@@ -68,11 +68,11 @@ class util {
         $authorization = get_config('mymediasite', 'authorization');
 
         $pagesize = 10;
-        $skip = ($page - 1)* $pagesize; // $page is one-based.
+        $skip = ($page - 1) * $pagesize; // $page is one-based.
 
         $filter = urlencode("Creator eq '{$USER->username}'");
         
-        $endpoint = 'https://' . $basemediasiteurl . '/Api/v1/Presentations?$select=full&$orderby=CreationDate+desc&$top=' . $pagesize . '&$skip=' . $skip . '&$filter=' . $filter;
+        $endpoint = "https://$basemediasiteurl/Api/v1/Presentations?\$select=full&\$orderby=CreationDate+desc&\$top=$pagesize&\$skip=$skip&\$filter=$filter";
 
         $ch = new curl();
         $ch->setHeader([
@@ -118,8 +118,8 @@ class util {
         $minutes = floor($seconds / 60);
         $hours = floor($minutes / 60);
 
-        $seconds = $seconds % 60;
-        $minutes = $minutes % 60;
+        $seconds %= 60;
+        $minutes %= 60;
 
         $parts = [];
 
@@ -140,5 +140,4 @@ class util {
 
         return implode(' ', $parts);
     }
-
 }
