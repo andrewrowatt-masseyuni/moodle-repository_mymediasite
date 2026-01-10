@@ -80,6 +80,8 @@ class get_presentations extends external_api {
             'date_formatted' => new external_value(PARAM_TEXT, 'Presentation creation date formatted'),
             'author' => new external_value(PARAM_TEXT, 'Presentation author'),
             'mimetype' => new external_value(PARAM_TEXT, 'Presentation mimetype'),
+            'duration' => new external_value(PARAM_INT, 'Presentation duration in milliseconds'),
+            'duration_formatted' => new external_value(PARAM_TEXT, 'Presentation duration formatted'),
         ])
     );
     }

@@ -44,6 +44,8 @@ class util {
                 'date_formatted' => userdate(strtotime($presentation['CreationDate']), get_string('strftimedatetime', 'langconfig')),
                 'author' => $presentation['Creator'],
                 'mimetype' => 'Video',
+                'duration' => isset($presentation['Duration']) ? $presentation['Duration'] : 0,
+                'duration_formatted' => isset($presentation['Duration']) ? self::format_duration($presentation['Duration']) : '',
             ];
             $list[] = $listitem;
         }
@@ -98,6 +100,41 @@ class util {
         }
 
         return $response;
+    }
+
+    /**
+     * Format duration from milliseconds to human-readable format
+     *
+     * @param int $milliseconds Duration in milliseconds
+     * @return string Formatted duration string (e.g., "4 Minutes 35 Seconds")
+     */
+    private static function format_duration(int $milliseconds): string {
+        if ($milliseconds <= 0) {
+            return '';
+        }
+
+        $seconds = floor($milliseconds / 1000);
+        $minutes = floor($seconds / 60);
+        $hours = floor($minutes / 60);
+
+        $seconds = $seconds % 60;
+        $minutes = $minutes % 60;
+
+        $parts = [];
+
+        if ($hours > 0) {
+            $parts[] = $hours . ' ' . ($hours == 1 ? 'Hour' : 'Hours');
+        }
+
+        if ($minutes > 0) {
+            $parts[] = $minutes . ' ' . ($minutes == 1 ? 'Minute' : 'Minutes');
+        }
+
+        if ($seconds > 0) {
+            $parts[] = $seconds . ' ' . ($seconds == 1 ? 'Second' : 'Seconds');
+        }
+
+        return implode(' ', $parts);
     }
 
 }
