@@ -123,15 +123,18 @@ class util {
         $parts = [];
 
         if ($hours > 0) {
-            $parts[] = $hours . ' ' . ($hours == 1 ? 'Hour' : 'Hours');
+            $label = $hours == 1 ? 'duration_hour' : 'duration_hours';
+            $parts[] = $hours . ' ' . get_string($label, 'repository_mymediasite');
         }
 
         if ($minutes > 0) {
-            $parts[] = $minutes . ' ' . ($minutes == 1 ? 'Minute' : 'Minutes');
+            $label = $minutes == 1 ? 'duration_minute' : 'duration_minutes';
+            $parts[] = $minutes . ' ' . get_string($label, 'repository_mymediasite');
         }
 
         if ($seconds > 0) {
-            $parts[] = $seconds . ' ' . ($seconds == 1 ? 'Second' : 'Seconds');
+            $label = $seconds == 1 ? 'duration_second' : 'duration_seconds';
+            $parts[] = $seconds . ' ' . get_string($label, 'repository_mymediasite');
         }
 
         return implode(' ', $parts);
