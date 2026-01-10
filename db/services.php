@@ -15,18 +15,27 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information for Mymediasite
+ * External functions and service declaration for My Mediasite
+ *
+ * Documentation: {@link https://moodledev.io/docs/apis/subsystems/external/description}
  *
  * @package    repository_mymediasite
+ * @category   webservice
  * @copyright  2026 Andrew Rowatt <A.J.Rowatt@massey.ac.nz>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component    = 'repository_mymediasite';
-$plugin->release      = '1.1';
-$plugin->version      = 2026011001;
-$plugin->requires     = 2024100700;
-$plugin->supported    = [405, 502];
-$plugin->maturity     = MATURITY_STABLE;
+$functions = [
+
+    'repository_mymediasite_get_presentations' => [
+        'classname' => repository_mymediasite\external\get_presentations::class,
+        'description' => 'Get presentations',
+        'type' => 'read',
+        'ajax' => true,
+    ],
+];
+
+$services = [
+];
