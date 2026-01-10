@@ -18,8 +18,12 @@ namespace repository_mymediasite\external;
 
 use core_external\external_function_parameters;
 use core_external\external_single_structure;
+use core_external\external_multiple_structure;
 use core_external\external_api;
 use core_external\external_value;
+
+/* To resolved the Exception - Class "curl" not found issue */
+require_once($CFG->dirroot . '/lib/filelib.php');
 
 /**
  * Implementation of web service repository_mymediasite_get_presentations
@@ -44,7 +48,7 @@ class get_presentations extends external_api {
     /**
      * Implementation of web service repository_mymediasite_get_presentations
      *
-     * @param mixed $param1
+     * @param int $page
      */
     public static function execute($page) {
         // Parameter validation.
@@ -54,14 +58,12 @@ class get_presentations extends external_api {
         );
 
         // From web services we don't call require_login(), but rather validate_context.
-        $context = \context_system::instance(); // TODO change if required.
+        $context = \context_system::instance();
         self::validate_context($context);
-
-        // TODO check permissions and implement WS.
 
         $presentations = \repository_mymediasite\util::get_mymediasite_presentations($page);
 
-        return $presentations;
+        return $presentations['list'];
     }
 
     /**
@@ -69,7 +71,15 @@ class get_presentations extends external_api {
      *
      * @return external_single_structure
      */
-    public static function execute_returns(): external_single_structure {
-        return new external_single_structure([]);
+    public static function execute_returns(): external_multiple_structure {
+        return new external_multiple_structure(
+        new external_single_structure([
+            'title' => new external_value(PARAM_TEXT, 'Presentation title'),
+            'source' => new external_value(PARAM_URL, 'Presentation source URL'),
+            'date' => new external_value(PARAM_INT, 'Presentation creation date'),
+            'author' => new external_value(PARAM_TEXT, 'Presentation author'),
+            'mimetype' => new external_value(PARAM_TEXT, 'Presentation mimetype'),
+        ])
+    );
     }
 }

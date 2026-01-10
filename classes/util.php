@@ -58,7 +58,7 @@ class util {
 
     private static function get_presentations(int $page): array {
         global $USER;
-        
+
         $basemediasiteurl = get_config('mymediasite', 'basemediasiteurl');
         $sfapikey = get_config('mymediasite', 'sfapikey');
         $authorization = get_config('mymediasite', 'authorization');
@@ -69,7 +69,7 @@ class util {
         $filter = urlencode("Creator eq '{$USER->username}'");
         
         $endpoint = 'https://' . $basemediasiteurl . '/Api/v1/Presentations?$select=full&$orderby=CreationDate+desc&$top=' . $pagesize . '&$skip=' . $skip . '&$filter=' . $filter;
-        
+
         $ch = new curl();
         $ch->setHeader([
             'Content-Type: application/json',
