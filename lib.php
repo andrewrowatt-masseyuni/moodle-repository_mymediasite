@@ -151,6 +151,8 @@ class repository_mediasite extends repository {
         $mform->setType('authorization', PARAM_RAW_TRIMMED);
         $mform->addRule('authorization', get_string('required'), 'required', null, 'client');
 
+        $mform->addElement('static', null, '', get_string('information', 'repository_mediasite'));
+
         $mform->addElement(
             'text',
             'manageurl',
@@ -159,8 +161,6 @@ class repository_mediasite extends repository {
         );
         $mform->setType('manageurl', PARAM_RAW_TRIMMED);
         $mform->addElement('static', null, '', get_string('manageurl_help', 'repository_mediasite'));
-
-        $mform->addElement('static', null, '', get_string('information', 'repository_mediasite'));
     }
 
     /**
