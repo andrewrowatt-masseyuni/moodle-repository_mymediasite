@@ -57,6 +57,11 @@ class util {
                 'duration' => $duration,
                 'duration_formatted' => $duration > 0 ? self::format_duration($duration) : '',
             ];
+
+            if (!empty($presentation['ThumbnailUrl'])) {
+                $listitem['thumbnailurl'] = $presentation['ThumbnailUrl'];
+            }
+
             $list[] = $listitem;
         }
 
