@@ -82,6 +82,7 @@ class get_presentations extends external_api {
             'mimetype' => new external_value(PARAM_TEXT, 'Presentation mimetype'),
             'duration' => new external_value(PARAM_INT, 'Presentation duration in milliseconds'),
             'duration_formatted' => new external_value(PARAM_TEXT, 'Presentation duration formatted'),
+            'thumbnailurl' => new external_value(PARAM_URL, 'Presentation thumbnail URL', VALUE_OPTIONAL),
             ])
         );
     }
