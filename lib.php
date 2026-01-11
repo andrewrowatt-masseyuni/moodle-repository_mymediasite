@@ -15,11 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * repository_mymediasite plugin implementation
+ * repository_mediasite plugin implementation
  *
  * Documentation: {@link https://moodledev.io/docs/apis/plugintypes/repository}
  *
- * @package    repository_mymediasite
+ * @package    repository_mediasite
  * @copyright  2026 Andrew Rowatt <A.J.Rowatt@massey.ac.nz>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,13 +29,13 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/repository/lib.php');
 
 /**
- * Repository repository_mymediasite implementation
+ * Repository repository_mediasite implementation
  *
- * @package    repository_mymediasite
+ * @package    repository_mediasite
  * @copyright  2026 Andrew Rowatt <A.J.Rowatt@massey.ac.nz>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class repository_mymediasite extends repository {
+class repository_mediasite extends repository {
     /**
      * Given a path, and perhaps a search, get a list of files.
      *
@@ -64,7 +64,7 @@ class repository_mymediasite extends repository {
         }
 
         $pageint = intval($page);
-        $presentations = repository_mymediasite\util::get_mymediasite_presentations($pageint);
+        $presentations = repository_mediasite\util::get_mediasite_presentations($pageint);
 
         return $presentations;
     }
@@ -103,17 +103,17 @@ class repository_mymediasite extends repository {
     public static function type_config_form($mform, $classname = 'repository') {
         parent::type_config_form($mform, $classname);
 
-        $basemediasiteurl = get_config('mymediasite', 'basemediasiteurl');
+        $basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
         if (empty($basemediasiteurl)) {
             $basemediasiteurl = '';
         }
 
-        $sfapikey = get_config('mymediasite', 'sfapikey');
+        $sfapikey = get_config('mediasite', 'sfapikey');
         if (empty($sfapikey)) {
             $sfapikey = '';
         }
 
-        $authorization = get_config('mymediasite', 'authorization');
+        $authorization = get_config('mediasite', 'authorization');
         if (empty($authorization)) {
             $authorization = '';
         }
@@ -121,7 +121,7 @@ class repository_mymediasite extends repository {
         $mform->addElement(
             'text',
             'basemediasiteurl',
-            get_string('basemediasiteurl', 'repository_mymediasite'),
+            get_string('basemediasiteurl', 'repository_mediasite'),
             ['value' => $basemediasiteurl, 'size' => '40']
         );
 
@@ -131,7 +131,7 @@ class repository_mymediasite extends repository {
         $mform->addElement(
             'text',
             'sfapikey',
-            get_string('sfapikey', 'repository_mymediasite'),
+            get_string('sfapikey', 'repository_mediasite'),
             ['value' => $sfapikey, 'size' => '40']
         );
         $mform->setType('sfapikey', PARAM_RAW_TRIMMED);
@@ -140,13 +140,13 @@ class repository_mymediasite extends repository {
         $mform->addElement(
             'text',
             'authorization',
-            get_string('authorization', 'repository_mymediasite'),
+            get_string('authorization', 'repository_mediasite'),
             ['value' => $authorization, 'size' => '40']
         );
         $mform->setType('authorization', PARAM_RAW_TRIMMED);
         $mform->addRule('authorization', get_string('required'), 'required', null, 'client');
 
-        $mform->addElement('static', null, '', get_string('information', 'repository_mymediasite'));
+        $mform->addElement('static', null, '', get_string('information', 'repository_mediasite'));
     }
 
     /**
@@ -164,13 +164,13 @@ class repository_mymediasite extends repository {
      */
     public function set_option($options = []) {
         if (!empty($options['sfapikey'])) {
-            set_config('sfapikey', trim($options['sfapikey']), 'mymediasite');
+            set_config('sfapikey', trim($options['sfapikey']), 'mediasite');
         }
         if (!empty($options['authorization'])) {
-            set_config('authorization', trim($options['authorization']), 'mymediasite');
+            set_config('authorization', trim($options['authorization']), 'mediasite');
         }
         if (!empty($options['basemediasiteurl'])) {
-            set_config('basemediasiteurl', trim($options['basemediasiteurl']), 'mymediasite');
+            set_config('basemediasiteurl', trim($options['basemediasiteurl']), 'mediasite');
         }
         unset($options['sfapikey']);
         unset($options['authorization']);
@@ -186,20 +186,20 @@ class repository_mymediasite extends repository {
      */
     public function get_option($config = '') {
         if ($config === 'basemediasiteurl') {
-            return trim(get_config('mymediasite', 'basemediasiteurl'));
+            return trim(get_config('mediasite', 'basemediasiteurl'));
         } else {
-            $options['basemediasiteurl'] = trim(get_config('mymediasite', 'basemediasiteurl'));
+            $options['basemediasiteurl'] = trim(get_config('mediasite', 'basemediasiteurl'));
         }
 
         if ($config === 'sfapikey') {
-            return trim(get_config('mymediasite', 'sfapikey'));
+            return trim(get_config('mediasite', 'sfapikey'));
         } else {
-            $options['sfapikey'] = trim(get_config('mymediasite', 'sfapikey'));
+            $options['sfapikey'] = trim(get_config('mediasite', 'sfapikey'));
         }
         if ($config === 'authorization') {
-            return trim(get_config('mymediasite', 'authorization'));
+            return trim(get_config('mediasite', 'authorization'));
         } else {
-            $options['authorization'] = trim(get_config('mymediasite', 'authorization'));
+            $options['authorization'] = trim(get_config('mediasite', 'authorization'));
         }
 
         return parent::get_option($config);

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace repository_mymediasite\external;
+namespace repository_mediasite\external;
 
 use core_external\external_function_parameters;
 use core_external\external_single_structure;
@@ -27,15 +27,15 @@ use core_external\external_value;
 require_once($CFG->dirroot . '/lib/filelib.php');
 
 /**
- * Implementation of web service repository_mymediasite_get_presentations
+ * Implementation of web service repository_mediasite_get_presentations
  *
- * @package    repository_mymediasite
+ * @package    repository_mediasite
  * @copyright  2026 Andrew Rowatt <A.J.Rowatt@massey.ac.nz>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class get_presentations extends external_api {
     /**
-     * Describes the parameters for repository_mymediasite_get_presentations
+     * Describes the parameters for repository_mediasite_get_presentations
      *
      * @return external_function_parameters
      */
@@ -46,7 +46,7 @@ class get_presentations extends external_api {
     }
 
     /**
-     * Implementation of web service repository_mymediasite_get_presentations
+     * Implementation of web service repository_mediasite_get_presentations
      *
      * @param int $page
      */
@@ -61,13 +61,13 @@ class get_presentations extends external_api {
         $context = \context_system::instance();
         self::validate_context($context);
 
-        $presentations = \repository_mymediasite\util::get_mymediasite_presentations($page);
+        $presentations = \repository_mediasite\util::get_mediasite_presentations($page);
 
         return $presentations['list'];
     }
 
     /**
-     * Describe the return structure for repository_mymediasite_get_presentations
+     * Describe the return structure for repository_mediasite_get_presentations
      *
      * @return external_single_structure
      */

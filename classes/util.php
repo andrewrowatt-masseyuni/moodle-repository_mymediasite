@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace repository_mymediasite;
+namespace repository_mediasite;
 
 use curl;
 use core\exception\moodle_exception;
@@ -22,7 +22,7 @@ use core\exception\moodle_exception;
 /**
  * Class util
  *
- * @package    repository_mymediasite
+ * @package    repository_mediasite
  * @copyright  2026 Andrew Rowatt <A.J.Rowatt@massey.ac.nz>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -33,8 +33,8 @@ class util {
      * @param int $page
      * @return array{list: array, nologin: bool, norefresh: bool, nosearch: bool, page: int, pages: int}
      */
-    public static function get_mymediasite_presentations(int $page): array {
-        $basemediasiteurl = get_config('mymediasite', 'basemediasiteurl');
+    public static function get_mediasite_presentations(int $page): array {
+        $basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
 
         $presentations = self::get_presentations($page);
 
@@ -84,9 +84,9 @@ class util {
     private static function get_presentations(int $page): array {
         global $USER;
 
-        $basemediasiteurl = get_config('mymediasite', 'basemediasiteurl');
-        $sfapikey = get_config('mymediasite', 'sfapikey');
-        $authorization = get_config('mymediasite', 'authorization');
+        $basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
+        $sfapikey = get_config('mediasite', 'sfapikey');
+        $authorization = get_config('mediasite', 'authorization');
 
         $pagesize = 10;
         $skip = ($page - 1) * $pagesize; // Page is one-based.
@@ -108,13 +108,13 @@ class util {
         $responseraw = $ch->get($endpoint);
 
         if ($ch->get_errno() !== 0) {
-            throw new moodle_exception('mediasiteapierror', 'repository_mymediasite', '', $ch->get_errno(), $endpoint);
+            throw new moodle_exception('mediasiteapierror', 'repository_mediasite', '', $ch->get_errno(), $endpoint);
         }
 
         $info = $ch->get_info();
 
         if ($info['http_code'] != 200) {
-            throw new moodle_exception('mediasiteapierror', 'repository_mymediasite', '', $info['http_code'], 2);
+            throw new moodle_exception('mediasiteapierror', 'repository_mediasite', '', $info['http_code'], 2);
         }
 
         $response = json_decode($responseraw, true);
@@ -122,7 +122,7 @@ class util {
         if (!$response) {
             throw new moodle_exception(
                 'mediasiteapierror',
-                'repository_mymediasite',
+                'repository_mediasite',
                 '',
                 'Invalid JSON response',
                 'Invalid JSON response'
@@ -154,17 +154,17 @@ class util {
 
         if ($hours > 0) {
             $label = $hours == 1 ? 'duration_hour' : 'duration_hours';
-            $parts[] = $hours . ' ' . get_string($label, 'repository_mymediasite');
+            $parts[] = $hours . ' ' . get_string($label, 'repository_mediasite');
         }
 
         if ($minutes > 0) {
             $label = $minutes == 1 ? 'duration_minute' : 'duration_minutes';
-            $parts[] = $minutes . ' ' . get_string($label, 'repository_mymediasite');
+            $parts[] = $minutes . ' ' . get_string($label, 'repository_mediasite');
         }
 
         if ($seconds > 0) {
             $label = $seconds == 1 ? 'duration_second' : 'duration_seconds';
-            $parts[] = $seconds . ' ' . get_string($label, 'repository_mymediasite');
+            $parts[] = $seconds . ' ' . get_string($label, 'repository_mediasite');
         }
 
         return implode(' ', $parts);

@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * English language pack for Mymediasite
+ * English language pack for Mediasite
  *
- * @package    repository_mymediasite
+ * @package    repository_mediasite
  * @category   string
  * @copyright  2026 Andrew Rowatt <A.J.Rowatt@massey.ac.nz>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['authorization'] = 'Authorization header value';
 $string['basemediasiteurl'] = 'Base Mediasite URL';
-$string['configplugin'] = 'My Mediasite repository type configuration';
+$string['configplugin'] = 'Mediasite repository type configuration';
 $string['duration_hour'] = 'Hour';
 $string['duration_hours'] = 'Hours';
 $string['duration_minute'] = 'Minute';
@@ -36,7 +36,7 @@ $string['duration_second'] = 'Second';
 $string['duration_seconds'] = 'Seconds';
 $string['information'] = '[[Get key from ITS]]';
 $string['mediasiteapierror'] = 'Mediasite API error';
-$string['mymediasite:view'] = 'View My Mediasite repository';
-$string['pluginname'] = 'My Mediasite';
-$string['privacy:metadata'] = 'The My Mediasite plugin doesn\'t store any personal data.';
+$string['mediasite:view'] = 'View Mediasite repository';
+$string['pluginname'] = 'Mediasite';
+$string['privacy:metadata'] = 'The Mediasite plugin doesn\'t store any personal data.';
 $string['sfapikey'] = 'API key (sfapikey)';

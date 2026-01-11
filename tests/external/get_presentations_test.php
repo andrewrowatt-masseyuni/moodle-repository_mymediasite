@@ -14,22 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace repository_mymediasite\external;
+namespace repository_mediasite\external;
 
 /**
  * Tests for get_presentations external function
  *
- * @package    repository_mymediasite
+ * @package    repository_mediasite
  * @category   test
  * @copyright  2026 Andrew Rowatt <A.J.Rowatt@massey.ac.nz>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers \repository_mymediasite\external\get_presentations
+ * @covers \repository_mediasite\external\get_presentations
  */
 final class get_presentations_test extends \advanced_testcase {
     /**
      * Test that the return structure includes thumbnailurl field
      *
-     * @covers \repository_mymediasite\external\get_presentations::execute_returns
+     * @covers \repository_mediasite\external\get_presentations::execute_returns
      */
     public function test_return_structure_includes_thumbnailurl(): void {
         $returns = get_presentations::execute_returns();

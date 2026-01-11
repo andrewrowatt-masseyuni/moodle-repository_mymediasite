@@ -1,1 +1,1 @@
-# moodle-repository_mymediasite
+# moodle-repository_mediasite

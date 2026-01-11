@@ -15,11 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Capability definitions for Mymediasite
+ * Capability definitions for Mediasite
  *
  * Documentation: {@link https://moodledev.io/docs/apis/subsystems/access}
  *
- * @package    repository_mymediasite
+ * @package    repository_mediasite
  * @category   access
  * @copyright  2026 Andrew Rowatt <A.J.Rowatt@massey.ac.nz>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $capabilities = [
 
-    'repository/mymediasite:view' => [
+    'repository/mediasite:view' => [
         'captype' => 'read',
         'contextlevel' => CONTEXT_COURSE,
         'archetypes' => [

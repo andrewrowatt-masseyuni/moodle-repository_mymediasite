@@ -14,12 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace repository_mymediasite;
+namespace repository_mediasite;
 
 /**
- * Tests for Mymediasite
+ * Tests for Mediasite
  *
- * @package    repository_mymediasite
+ * @package    repository_mediasite
  * @category   test
  * @copyright  2026 Andrew Rowatt <A.J.Rowatt@massey.ac.nz>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -32,6 +32,6 @@ final class lib_test extends \advanced_testcase {
      * @covers ::get_config
      */
     public function test_plugin_installed(): void {
-        $this->assertNotEmpty(get_config('repository_mymediasite', 'version'));
+        $this->assertNotEmpty(get_config('repository_mediasite', 'version'));
     }
 }

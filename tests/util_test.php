@@ -14,16 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace repository_mymediasite;
+namespace repository_mediasite;
 
 /**
  * Tests for util class
  *
- * @package    repository_mymediasite
+ * @package    repository_mediasite
  * @category   test
  * @copyright  2026 Andrew Rowatt <A.J.Rowatt@massey.ac.nz>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers \repository_mymediasite\util
+ * @covers \repository_mediasite\util
  */
 final class util_test extends \advanced_testcase {
     /**
@@ -32,7 +32,7 @@ final class util_test extends \advanced_testcase {
      * @param int $milliseconds Input duration in milliseconds
      * @param string $expected Expected formatted duration string
      *
-     * @covers \repository_mymediasite\util::format_duration
+     * @covers \repository_mediasite\util::format_duration
      * @dataProvider duration_formatting_provider
      */
     public function test_duration_formatting($milliseconds, $expected): void {

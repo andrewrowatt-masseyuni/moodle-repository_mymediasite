@@ -15,16 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information for Mymediasite
+ * Version information for Mediasite
  *
- * @package    repository_mymediasite
+ * @package    repository_mediasite
  * @copyright  2026 Andrew Rowatt <A.J.Rowatt@massey.ac.nz>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component    = 'repository_mymediasite';
+$plugin->component    = 'repository_mediasite';
 $plugin->release      = '1.1';
 $plugin->version      = 2026011001;
 $plugin->requires     = 2024100700;

@@ -15,11 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * External functions and service declaration for My Mediasite
+ * External functions and service declaration for Mediasite
  *
  * Documentation: {@link https://moodledev.io/docs/apis/subsystems/external/description}
  *
- * @package    repository_mymediasite
+ * @package    repository_mediasite
  * @category   webservice
  * @copyright  2026 Andrew Rowatt <A.J.Rowatt@massey.ac.nz>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -29,8 +29,8 @@ defined('MOODLE_INTERNAL') || die();
 
 $functions = [
 
-    'repository_mymediasite_get_presentations' => [
-        'classname' => repository_mymediasite\external\get_presentations::class,
+    'repository_mediasite_get_presentations' => [
+        'classname' => repository_mediasite\external\get_presentations::class,
         'description' => 'Get presentations',
         'type' => 'read',
         'ajax' => true,
