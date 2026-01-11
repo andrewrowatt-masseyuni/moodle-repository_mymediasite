@@ -34,17 +34,36 @@ final class get_presentations_test extends \advanced_testcase {
     public function test_return_structure_includes_thumbnailurl(): void {
         $returns = get_presentations::execute_returns();
 
-        // Get the structure from the multiple structure.
-        $structure = $returns->content;
+        // Get the list structure from the single structure.
+        $liststructure = $returns->keys['list']->content;
 
-        // Verify that the structure has a thumbnailurl field.
-        $this->assertArrayHasKey('thumbnail', $structure->keys);
+        // Verify that the structure has a thumbnail field.
+        $this->assertArrayHasKey('thumbnail', $liststructure->keys);
 
-        // Verify that thumbnailurl is optional.
-        $thumbnailurlfield = $structure->keys['thumbnail'];
-        $this->assertEquals(VALUE_OPTIONAL, $thumbnailurlfield->required);
+        // Verify that thumbnail is optional.
+        $thumbnailfield = $liststructure->keys['thumbnail'];
+        $this->assertEquals(VALUE_OPTIONAL, $thumbnailfield->required);
 
         // Verify it's a URL parameter type.
-        $this->assertEquals(PARAM_URL, $thumbnailurlfield->type);
+        $this->assertEquals(PARAM_URL, $thumbnailfield->type);
+    }
+
+    /**
+     * Test that the return structure includes manage field
+     *
+     * @covers \repository_mediasite\external\get_presentations::execute_returns
+     */
+    public function test_return_structure_includes_manage(): void {
+        $returns = get_presentations::execute_returns();
+
+        // Verify that the structure has a manage field.
+        $this->assertArrayHasKey('manage', $returns->keys);
+
+        // Verify that manage is optional.
+        $managefield = $returns->keys['manage'];
+        $this->assertEquals(VALUE_OPTIONAL, $managefield->required);
+
+        // Verify it's a URL parameter type.
+        $this->assertEquals(PARAM_URL, $managefield->type);
     }
 }
