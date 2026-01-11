@@ -31,7 +31,7 @@ class util {
      * Transforms the list of presentations from the Mediasite for use by the Resposity API
      *
      * @param int $page
-     * @return array{list: array, nologin: bool, norefresh: bool, nosearch: bool, page: int, pages: int}
+     * @return array{list: array, manage?: string, nologin: bool, norefresh: bool, nosearch: bool, page: int, pages: int}
      */
     public static function get_mediasite_presentations(int $page): array {
         $basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
@@ -65,13 +65,23 @@ class util {
             $list[] = $listitem;
         }
 
-        return [
-            'nologin' => true,
-            'norefresh' => true,
-            'nosearch' => true,
-            'page' => $page,
-            'pages' => -1, // Unknown total pages. To Do: implement total count if available.
-            'list' => $list];
+        $result = [
+            'list' => $list,
+        ];
+
+        // Add manage URL if set.
+        $manageurl = get_config('mediasite', 'manageurl');
+        if (!empty($manageurl)) {
+            $result['manage'] = 'https://' . $manageurl;
+        }
+
+        $result['nologin'] = true;
+        $result['norefresh'] = true;
+        $result['nosearch'] = true;
+        $result['page'] = $page;
+        $result['pages'] = -1; // Unknown total pages. To Do: implement total count if available.
+
+        return $result;
     }
 
     /**
