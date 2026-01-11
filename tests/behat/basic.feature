@@ -6,5 +6,5 @@ Feature: Basic tests for Mymediasite
     Given I log in as "admin"
     When I navigate to "Plugins > Plugins overview" in site administration
     And I follow "Additional plugins"
-    Then I should see "Mymediasite"
+    Then I should see "My Mediasite"
     And I should see "repository_mymediasite"
