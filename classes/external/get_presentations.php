@@ -63,7 +63,7 @@ class get_presentations extends external_api {
 
         $presentations = \repository_mediasite\util::get_mediasite_presentations($page);
 
-        return $presentations['list'];
+        return $presentations;
     }
 
     /**
@@ -71,19 +71,27 @@ class get_presentations extends external_api {
      *
      * @return external_single_structure
      */
-    public static function execute_returns(): external_multiple_structure {
-        return new external_multiple_structure(
-            new external_single_structure([
-            'title' => new external_value(PARAM_TEXT, 'Presentation title'),
-            'source' => new external_value(PARAM_URL, 'Presentation source URL'),
-            'date' => new external_value(PARAM_INT, 'Presentation creation date'),
-            'date_formatted' => new external_value(PARAM_TEXT, 'Presentation creation date formatted'),
-            'author' => new external_value(PARAM_TEXT, 'Presentation author'),
-            'mimetype' => new external_value(PARAM_TEXT, 'Presentation mimetype'),
-            'duration' => new external_value(PARAM_INT, 'Presentation duration in milliseconds'),
-            'duration_formatted' => new external_value(PARAM_TEXT, 'Presentation duration formatted'),
-            'thumbnail' => new external_value(PARAM_URL, 'Presentation thumbnail URL', VALUE_OPTIONAL),
-            ])
-        );
+    public static function execute_returns(): external_single_structure {
+        return new external_single_structure([
+            'list' => new external_multiple_structure(
+                new external_single_structure([
+                    'title' => new external_value(PARAM_TEXT, 'Presentation title'),
+                    'source' => new external_value(PARAM_URL, 'Presentation source URL'),
+                    'date' => new external_value(PARAM_INT, 'Presentation creation date'),
+                    'date_formatted' => new external_value(PARAM_TEXT, 'Presentation creation date formatted'),
+                    'author' => new external_value(PARAM_TEXT, 'Presentation author'),
+                    'mimetype' => new external_value(PARAM_TEXT, 'Presentation mimetype'),
+                    'duration' => new external_value(PARAM_INT, 'Presentation duration in milliseconds'),
+                    'duration_formatted' => new external_value(PARAM_TEXT, 'Presentation duration formatted'),
+                    'thumbnail' => new external_value(PARAM_URL, 'Presentation thumbnail URL', VALUE_OPTIONAL),
+                ])
+            ),
+            'manage' => new external_value(PARAM_URL, 'Management URL', VALUE_OPTIONAL),
+            'nologin' => new external_value(PARAM_BOOL, 'No login required'),
+            'norefresh' => new external_value(PARAM_BOOL, 'No refresh'),
+            'nosearch' => new external_value(PARAM_BOOL, 'No search'),
+            'page' => new external_value(PARAM_INT, 'Current page number'),
+            'pages' => new external_value(PARAM_INT, 'Total pages'),
+        ]);
     }
 }

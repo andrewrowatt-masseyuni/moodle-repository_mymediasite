@@ -118,6 +118,11 @@ class repository_mediasite extends repository {
             $authorization = '';
         }
 
+        $manageurl = get_config('mediasite', 'manageurl');
+        if (empty($manageurl)) {
+            $manageurl = 'domain.com/mediasite/mymediasite';
+        }
+
         $mform->addElement(
             'text',
             'basemediasiteurl',
@@ -146,6 +151,15 @@ class repository_mediasite extends repository {
         $mform->setType('authorization', PARAM_RAW_TRIMMED);
         $mform->addRule('authorization', get_string('required'), 'required', null, 'client');
 
+        $mform->addElement(
+            'text',
+            'manageurl',
+            get_string('manageurl', 'repository_mediasite'),
+            ['value' => $manageurl, 'size' => '40']
+        );
+        $mform->setType('manageurl', PARAM_RAW_TRIMMED);
+        $mform->addElement('static', null, '', get_string('manageurl_help', 'repository_mediasite'));
+
         $mform->addElement('static', null, '', get_string('information', 'repository_mediasite'));
     }
 
@@ -154,7 +168,7 @@ class repository_mediasite extends repository {
      * @return array
      */
     public static function get_type_option_names() {
-        return ['basemediasiteurl', 'sfapikey', 'authorization', 'pluginname'];
+        return ['basemediasiteurl', 'sfapikey', 'authorization', 'manageurl', 'pluginname'];
     }
 
     /**
@@ -172,9 +186,13 @@ class repository_mediasite extends repository {
         if (!empty($options['basemediasiteurl'])) {
             set_config('basemediasiteurl', trim($options['basemediasiteurl']), 'mediasite');
         }
+        if (!empty($options['manageurl'])) {
+            set_config('manageurl', trim($options['manageurl']), 'mediasite');
+        }
         unset($options['sfapikey']);
         unset($options['authorization']);
         unset($options['basemediasiteurl']);
+        unset($options['manageurl']);
         return parent::set_option($options);
     }
 
@@ -200,6 +218,11 @@ class repository_mediasite extends repository {
             return trim(get_config('mediasite', 'authorization'));
         } else {
             $options['authorization'] = trim(get_config('mediasite', 'authorization'));
+        }
+        if ($config === 'manageurl') {
+            return trim(get_config('mediasite', 'manageurl'));
+        } else {
+            $options['manageurl'] = trim(get_config('mediasite', 'manageurl'));
         }
 
         return parent::get_option($config);
