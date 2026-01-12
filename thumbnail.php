@@ -70,13 +70,13 @@ if ($info['http_code'] != 200) {
 
 $response = json_decode($responseraw, true);
 
-if (!$response || empty($response['ThumbnailUrl'])) {
+if (!$response || empty($response['value'][0]['ThumbnailUrl'])) {
     http_response_code(404);
     die('Thumbnail not found');
 }
 
-$thumbnailurl = $response['ThumbnailUrl'];
-$contentmimetype = $response['ContentMimeType'] ?? 'image/jpeg';
+$thumbnailurl = $response['value'][0]['ThumbnailUrl'];
+$contentmimetype = $response['value'][0]['ContentMimeType'] ?? 'image/jpeg';
 
 // Validate that the content type is an image to prevent content-type injection.
 // Note: SVG is excluded to prevent XSS attacks as SVG files can contain executable JavaScript.
