@@ -34,6 +34,8 @@ class util {
      * @return array{list: array, manage?: string, nologin: bool, norefresh: bool, nosearch: bool, page: int, pages: int}
      */
     public static function get_mediasite_presentations(int $page): array {
+        global $CFG;
+
         $basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
 
         $presentations = self::get_presentations($page);
@@ -59,7 +61,7 @@ class util {
             ];
 
             if (!empty($presentation['ThumbnailUrl'])) {
-                $listitem['thumbnail'] = $presentation['ThumbnailUrl'];
+                $listitem['thumbnail'] = $CFG->wwwroot . '/repository/mediasite/thumbnail.php?id=' . $presentation['Id'];
             }
 
             $list[] = $listitem;
