@@ -41,7 +41,7 @@ class util {
      * @return array{list: array, manage?: string, nologin: bool, norefresh: bool, nosearch: bool, page: int, pages: int}
      */
     public static function get_mediasite_presentations(int $page): array {
-        global $CFG;
+        global $CFG, $OUTPUT;
 
         $basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
 
@@ -62,6 +62,7 @@ class util {
                     get_string('strftimedatetime', 'langconfig')
                 ),
                 'author' => $presentation['Creator'],
+                'icon' => $OUTPUT->image_url(file_mimetype_icon('video/mp4'))->out(false),
                 'mimetype' => 'Video',
                 'duration' => $duration,
                 'duration_formatted' => $duration > 0 ? self::format_duration($duration) : '',
