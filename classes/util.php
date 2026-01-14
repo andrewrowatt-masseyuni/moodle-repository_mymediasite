@@ -63,6 +63,8 @@ class util {
                 ),
                 'author' => $presentation['Creator'],
                 'icon' => $OUTPUT->image_url(file_mimetype_icon('video/mp4'))->out(false),
+                "thumbnail_width" => 400,
+                "thumbnail_height" => 400,
                 'mimetype' => 'Video',
                 'duration' => $duration,
                 'duration_formatted' => $duration > 0 ? self::format_duration($duration) : '',
