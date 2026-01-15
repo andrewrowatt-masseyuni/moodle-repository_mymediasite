@@ -62,7 +62,8 @@ class util {
                     get_string('strftimedatetime', 'langconfig')
                 ),
                 'author' => $presentation['Creator'],
-                'icon' => $OUTPUT->image_url(file_mimetype_icon('video/mp4'))->out(false),
+                // Using video/mpeg as video/mp4 serves up a Adobe Flash icon in Boost.
+                'icon' => $OUTPUT->image_url(file_mimetype_icon('video/mpeg'))->out(false),
                 "thumbnail_width" => 400,
                 "thumbnail_height" => 400,
                 'mimetype' => 'Video',
