@@ -103,22 +103,22 @@ class repository_mediasite extends repository {
     public static function type_config_form($mform, $classname = 'repository') {
         parent::type_config_form($mform, $classname);
 
-        $basemediasiteurl = get_config('repository_mediasite', 'basemediasiteurl');
+        $basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
         if (empty($basemediasiteurl)) {
             $basemediasiteurl = '';
         }
 
-        $sfapikey = get_config('repository_mediasite', 'sfapikey');
+        $sfapikey = get_config('mediasite', 'sfapikey');
         if (empty($sfapikey)) {
             $sfapikey = '';
         }
 
-        $authorization = get_config('repository_mediasite', 'authorization');
+        $authorization = get_config('mediasite', 'authorization');
         if (empty($authorization)) {
             $authorization = '';
         }
 
-        $manageurl = get_config('repository_mediasite', 'manageurl');
+        $manageurl = get_config('mediasite', 'manageurl');
         if (empty($manageurl)) {
             $manageurl = 'domain.com/mediasite/mymediasite';
         }
@@ -178,16 +178,16 @@ class repository_mediasite extends repository {
      */
     public function set_option($options = []) {
         if (!empty($options['sfapikey'])) {
-            set_config('sfapikey', trim($options['sfapikey']), 'repository_mediasite');
+            set_config('sfapikey', trim($options['sfapikey']), 'mediasite');
         }
         if (!empty($options['authorization'])) {
-            set_config('authorization', trim($options['authorization']), 'repository_mediasite');
+            set_config('authorization', trim($options['authorization']), 'mediasite');
         }
         if (!empty($options['basemediasiteurl'])) {
-            set_config('basemediasiteurl', trim($options['basemediasiteurl']), 'repository_mediasite');
+            set_config('basemediasiteurl', trim($options['basemediasiteurl']), 'mediasite');
         }
         if (!empty($options['manageurl'])) {
-            set_config('manageurl', trim($options['manageurl']), 'repository_mediasite');
+            set_config('manageurl', trim($options['manageurl']), 'mediasite');
         }
         unset($options['sfapikey']);
         unset($options['authorization']);
@@ -204,25 +204,25 @@ class repository_mediasite extends repository {
      */
     public function get_option($config = '') {
         if ($config === 'basemediasiteurl') {
-            return trim(get_config('repository_mediasite', 'basemediasiteurl'));
+            return trim(get_config('mediasite', 'basemediasiteurl'));
         } else {
-            $options['basemediasiteurl'] = trim(get_config('repository_mediasite', 'basemediasiteurl'));
+            $options['basemediasiteurl'] = trim(get_config('mediasite', 'basemediasiteurl'));
         }
 
         if ($config === 'sfapikey') {
-            return trim(get_config('repository_mediasite', 'sfapikey'));
+            return trim(get_config('mediasite', 'sfapikey'));
         } else {
-            $options['sfapikey'] = trim(get_config('repository_mediasite', 'sfapikey'));
+            $options['sfapikey'] = trim(get_config('mediasite', 'sfapikey'));
         }
         if ($config === 'authorization') {
-            return trim(get_config('repository_mediasite', 'authorization'));
+            return trim(get_config('mediasite', 'authorization'));
         } else {
-            $options['authorization'] = trim(get_config('repository_mediasite', 'authorization'));
+            $options['authorization'] = trim(get_config('mediasite', 'authorization'));
         }
         if ($config === 'manageurl') {
-            return trim(get_config('repository_mediasite', 'manageurl'));
+            return trim(get_config('mediasite', 'manageurl'));
         } else {
-            $options['manageurl'] = trim(get_config('repository_mediasite', 'manageurl'));
+            $options['manageurl'] = trim(get_config('mediasite', 'manageurl'));
         }
 
         return parent::get_option($config);

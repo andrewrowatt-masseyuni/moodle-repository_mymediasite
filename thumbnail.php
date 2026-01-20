@@ -34,9 +34,9 @@ require_login();
 $presentationid = required_param('id', PARAM_ALPHANUMEXT);
 
 // Get Mediasite configuration.
-$basemediasiteurl = get_config('repository_mediasite', 'basemediasiteurl');
-$sfapikey = get_config('repository_mediasite', 'sfapikey');
-$authorization = get_config('repository_mediasite', 'authorization');
+$basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
+$sfapikey = get_config('mediasite', 'sfapikey');
+$authorization = get_config('mediasite', 'authorization');
 
 if (empty($basemediasiteurl) || empty($sfapikey) || empty($authorization)) {
     http_response_code(500);

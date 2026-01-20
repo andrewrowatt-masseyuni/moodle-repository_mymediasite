@@ -43,7 +43,7 @@ class util {
     public static function get_mediasite_presentations(int $page): array {
         global $CFG, $OUTPUT;
 
-        $basemediasiteurl = get_config('repository_mediasite', 'basemediasiteurl');
+        $basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
 
         $presentations = self::get_presentations($page);
 
@@ -83,7 +83,7 @@ class util {
         ];
 
         // Add manage URL if set.
-        $manageurl = get_config('repository_mediasite', 'manageurl');
+        $manageurl = get_config('mediasite', 'manageurl');
         if (!empty($manageurl)) {
             $result['manage'] = 'https://' . $manageurl;
         }
@@ -107,9 +107,9 @@ class util {
     private static function get_presentations(int $page): array {
         global $USER;
 
-        $basemediasiteurl = get_config('repository_mediasite', 'basemediasiteurl');
-        $sfapikey = get_config('repository_mediasite', 'sfapikey');
-        $authorization = get_config('repository_mediasite', 'authorization');
+        $basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
+        $sfapikey = get_config('mediasite', 'sfapikey');
+        $authorization = get_config('mediasite', 'authorization');
 
         $skip = ($page - 1) * self::MEDIASITE_API_PAGE_SIZE; // Page is one-based.
 
