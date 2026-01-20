@@ -105,10 +105,14 @@ class repository_mediasite extends repository {
     public static function type_config_form($mform, $classname = 'repository') {
         parent::type_config_form($mform, $classname);
 
+        /*
+
         $basemediasiteurl = get_config(util::M_SHORTNAME, 'basemediasiteurl');
         if (empty($basemediasiteurl)) {
             $basemediasiteurl = '';
         }
+
+        */
 
         $sfapikey = get_config(util::M_SHORTNAME, 'sfapikey');
         if (empty($sfapikey)) {
@@ -124,12 +128,13 @@ class repository_mediasite extends repository {
         if (empty($manageurl)) {
             $manageurl = 'domain.com/mediasite/mymediasite';
         }
+    
 
         $mform->addElement(
             'text',
             'basemediasiteurl',
             get_string('basemediasiteurl', util::M_COMPONENT),
-            ['value' => $basemediasiteurl, 'size' => '40']
+            ['size' => '40']
         );
 
         $mform->setType('basemediasiteurl', PARAM_RAW_TRIMMED);
