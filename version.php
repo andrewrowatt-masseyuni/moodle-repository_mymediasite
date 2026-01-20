@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component    = 'repository_mediasite';
 $plugin->release      = '1.1';
-$plugin->version      = 2026011002;
+$plugin->version      = 2026011003;
 $plugin->requires     = 2024100700;
 $plugin->supported    = [405, 502];
 $plugin->maturity     = MATURITY_STABLE;

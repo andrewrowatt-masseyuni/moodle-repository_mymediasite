@@ -28,6 +28,8 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/repository/lib.php');
 
+use repository_mediasite\util;
+
 /**
  * Repository repository_mediasite implementation
  *
@@ -64,7 +66,7 @@ class repository_mediasite extends repository {
         }
 
         $pageint = intval($page);
-        $presentations = repository_mediasite\util::get_mediasite_presentations($pageint);
+        $presentations = util::get_mediasite_presentations($pageint);
 
         return $presentations;
     }
@@ -103,22 +105,22 @@ class repository_mediasite extends repository {
     public static function type_config_form($mform, $classname = 'repository') {
         parent::type_config_form($mform, $classname);
 
-        $basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
+        $basemediasiteurl = get_config(util::M_SHORTNAME, 'basemediasiteurl');
         if (empty($basemediasiteurl)) {
             $basemediasiteurl = '';
         }
 
-        $sfapikey = get_config('mediasite', 'sfapikey');
+        $sfapikey = get_config(util::M_SHORTNAME, 'sfapikey');
         if (empty($sfapikey)) {
             $sfapikey = '';
         }
 
-        $authorization = get_config('mediasite', 'authorization');
+        $authorization = get_config(util::M_SHORTNAME, 'authorization');
         if (empty($authorization)) {
             $authorization = '';
         }
 
-        $manageurl = get_config('mediasite', 'manageurl');
+        $manageurl = get_config(util::M_SHORTNAME, 'manageurl');
         if (empty($manageurl)) {
             $manageurl = 'domain.com/mediasite/mymediasite';
         }
@@ -126,7 +128,7 @@ class repository_mediasite extends repository {
         $mform->addElement(
             'text',
             'basemediasiteurl',
-            get_string('basemediasiteurl', 'repository_mediasite'),
+            get_string('basemediasiteurl', util::M_COMPONENT),
             ['value' => $basemediasiteurl, 'size' => '40']
         );
 
@@ -136,7 +138,7 @@ class repository_mediasite extends repository {
         $mform->addElement(
             'text',
             'sfapikey',
-            get_string('sfapikey', 'repository_mediasite'),
+            get_string('sfapikey', util::M_COMPONENT),
             ['value' => $sfapikey, 'size' => '40']
         );
         $mform->setType('sfapikey', PARAM_RAW_TRIMMED);
@@ -145,22 +147,22 @@ class repository_mediasite extends repository {
         $mform->addElement(
             'text',
             'authorization',
-            get_string('authorization', 'repository_mediasite'),
+            get_string('authorization', util::M_COMPONENT),
             ['value' => $authorization, 'size' => '40']
         );
         $mform->setType('authorization', PARAM_RAW_TRIMMED);
         $mform->addRule('authorization', get_string('required'), 'required', null, 'client');
 
-        $mform->addElement('static', null, '', get_string('information', 'repository_mediasite'));
+        $mform->addElement('static', null, '', get_string('information', util::M_COMPONENT));
 
         $mform->addElement(
             'text',
             'manageurl',
-            get_string('manageurl', 'repository_mediasite'),
+            get_string('manageurl', util::M_COMPONENT),
             ['value' => $manageurl, 'size' => '40']
         );
         $mform->setType('manageurl', PARAM_RAW_TRIMMED);
-        $mform->addElement('static', null, '', get_string('manageurl_help', 'repository_mediasite'));
+        $mform->addElement('static', null, '', get_string('manageurl_help', util::M_COMPONENT));
     }
 
     /**
@@ -171,60 +173,36 @@ class repository_mediasite extends repository {
         return ['basemediasiteurl', 'sfapikey', 'authorization', 'manageurl', 'pluginname'];
     }
 
-    /**
-     * Save options in config table.
-     * @param array $options
-     * @return boolean
-     */
-    public function set_option($options = []) {
-        if (!empty($options['sfapikey'])) {
-            set_config('sfapikey', trim($options['sfapikey']), 'mediasite');
+     /**
+      * Get Plugin settings from Moodle config.
+      * @param string $config specific config to get
+      * @return mixed
+      */
+    public function get_option($config = '') {
+        $thisopts = self::get_type_option_names();
+        foreach ($thisopts as $opt) {
+            if ($config == $opt) {
+                return get_config(util::M_SHORTNAME, $opt);
+            }
         }
-        if (!empty($options['authorization'])) {
-            set_config('authorization', trim($options['authorization']), 'mediasite');
-        }
-        if (!empty($options['basemediasiteurl'])) {
-            set_config('basemediasiteurl', trim($options['basemediasiteurl']), 'mediasite');
-        }
-        if (!empty($options['manageurl'])) {
-            set_config('manageurl', trim($options['manageurl']), 'mediasite');
-        }
-        unset($options['sfapikey']);
-        unset($options['authorization']);
-        unset($options['basemediasiteurl']);
-        unset($options['manageurl']);
-        return parent::set_option($options);
+        $options = parent::get_option($config);
+        return $options;
     }
 
     /**
-     * Get options from config table.
-     *
-     * @param string $config
-     * @return mixed
+     * Save Plugin settings to Moodle config.
+     * @param array $options
+     * @return bool
      */
-    public function get_option($config = '') {
-        if ($config === 'basemediasiteurl') {
-            return trim(get_config('mediasite', 'basemediasiteurl'));
-        } else {
-            $options['basemediasiteurl'] = trim(get_config('mediasite', 'basemediasiteurl'));
+    public function set_option($options = []) {
+        $thisopts = self::get_type_option_names();
+        foreach ($thisopts as $opt) {
+            if (!empty($options[$opt])) {
+                set_config($opt, trim($options[$opt]), util::M_SHORTNAME);
+                unset($options[$opt]);
+            }
         }
-
-        if ($config === 'sfapikey') {
-            return trim(get_config('mediasite', 'sfapikey'));
-        } else {
-            $options['sfapikey'] = trim(get_config('mediasite', 'sfapikey'));
-        }
-        if ($config === 'authorization') {
-            return trim(get_config('mediasite', 'authorization'));
-        } else {
-            $options['authorization'] = trim(get_config('mediasite', 'authorization'));
-        }
-        if ($config === 'manageurl') {
-            return trim(get_config('mediasite', 'manageurl'));
-        } else {
-            $options['manageurl'] = trim(get_config('mediasite', 'manageurl'));
-        }
-
-        return parent::get_option($config);
+        $ret = parent::set_option($options);
+        return $ret;
     }
 }

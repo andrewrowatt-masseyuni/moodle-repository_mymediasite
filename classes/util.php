@@ -28,6 +28,17 @@ use core\exception\moodle_exception;
  */
 class util {
     /**
+     * Component name, db tables, strings that are fixed and used around the plugin
+     */
+    public const M_COMPONENT = 'repository_mediasite';
+
+    /**
+     * Shortname of the plugin
+     */
+    public const M_SHORTNAME = 'mediasite';
+
+
+    /**
      * Holds the default page size
      *
      * @var int
@@ -43,7 +54,7 @@ class util {
     public static function get_mediasite_presentations(int $page): array {
         global $CFG, $OUTPUT;
 
-        $basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
+        $basemediasiteurl = get_config(self::M_SHORTNAME, 'basemediasiteurl');
 
         $presentations = self::get_presentations($page);
 
@@ -83,7 +94,7 @@ class util {
         ];
 
         // Add manage URL if set.
-        $manageurl = get_config('mediasite', 'manageurl');
+        $manageurl = get_config(self::M_SHORTNAME, 'manageurl');
         if (!empty($manageurl)) {
             $result['manage'] = 'https://' . $manageurl;
         }
@@ -107,9 +118,9 @@ class util {
     private static function get_presentations(int $page): array {
         global $USER;
 
-        $basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
-        $sfapikey = get_config('mediasite', 'sfapikey');
-        $authorization = get_config('mediasite', 'authorization');
+        $basemediasiteurl = get_config(self::M_SHORTNAME, 'basemediasiteurl');
+        $sfapikey = get_config(self::M_SHORTNAME, 'sfapikey');
+        $authorization = get_config(self::M_SHORTNAME, 'authorization');
 
         $skip = ($page - 1) * self::MEDIASITE_API_PAGE_SIZE; // Page is one-based.
 
@@ -132,13 +143,13 @@ class util {
         $responseraw = $ch->get($endpoint);
 
         if ($ch->get_errno() !== 0) {
-            throw new moodle_exception('mediasiteapierror', 'repository_mediasite', '', $ch->get_errno(), $endpoint);
+            throw new moodle_exception('mediasiteapierror', self::M_COMPONENT, '', $ch->get_errno(), $endpoint);
         }
 
         $info = $ch->get_info();
 
         if ($info['http_code'] != 200) {
-            throw new moodle_exception('mediasiteapierror', 'repository_mediasite', '', $info['http_code'], 2);
+            throw new moodle_exception('mediasiteapierror', self::M_COMPONENT, '', $info['http_code'], 2);
         }
 
         $response = json_decode($responseraw, true);
@@ -146,7 +157,7 @@ class util {
         if (!$response) {
             throw new moodle_exception(
                 'mediasiteapierror',
-                'repository_mediasite',
+                self::M_COMPONENT,
                 '',
                 'Invalid JSON response',
                 'Invalid JSON response'
@@ -178,17 +189,17 @@ class util {
 
         if ($hours > 0) {
             $label = $hours == 1 ? 'duration_hour' : 'duration_hours';
-            $parts[] = $hours . ' ' . get_string($label, 'repository_mediasite');
+            $parts[] = $hours . ' ' . get_string($label, self::M_COMPONENT);
         }
 
         if ($minutes > 0) {
             $label = $minutes == 1 ? 'duration_minute' : 'duration_minutes';
-            $parts[] = $minutes . ' ' . get_string($label, 'repository_mediasite');
+            $parts[] = $minutes . ' ' . get_string($label, self::M_COMPONENT);
         }
 
         if ($seconds > 0) {
             $label = $seconds == 1 ? 'duration_second' : 'duration_seconds';
-            $parts[] = $seconds . ' ' . get_string($label, 'repository_mediasite');
+            $parts[] = $seconds . ' ' . get_string($label, self::M_COMPONENT);
         }
 
         return implode(' ', $parts);

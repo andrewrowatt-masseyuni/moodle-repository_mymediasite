@@ -29,14 +29,16 @@
 require_once(__DIR__ . '/../../config.php');
 require_once($CFG->libdir . '/filelib.php');
 
+use repository_mediasite\util;
+
 require_login();
 
 $presentationid = required_param('id', PARAM_ALPHANUMEXT);
 
 // Get Mediasite configuration.
-$basemediasiteurl = get_config('mediasite', 'basemediasiteurl');
-$sfapikey = get_config('mediasite', 'sfapikey');
-$authorization = get_config('mediasite', 'authorization');
+$basemediasiteurl = get_config(util::M_SHORTNAME, 'basemediasiteurl');
+$sfapikey = get_config(util::M_SHORTNAME, 'sfapikey');
+$authorization = get_config(util::M_SHORTNAME, 'authorization');
 
 if (empty($basemediasiteurl) || empty($sfapikey) || empty($authorization)) {
     http_response_code(500);

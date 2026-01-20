@@ -32,6 +32,6 @@ final class lib_test extends \advanced_testcase {
      * @covers ::get_config
      */
     public function test_plugin_installed(): void {
-        $this->assertNotEmpty(get_config('repository_mediasite', 'version'));
+        $this->assertNotEmpty(get_config(util::M_COMPONENT, 'version'));
     }
 }

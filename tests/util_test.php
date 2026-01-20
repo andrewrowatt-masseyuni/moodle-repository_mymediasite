@@ -75,7 +75,7 @@ final class util_test extends \advanced_testcase {
         $this->resetAfterTest(true);
 
         // Set the manageurl config.
-        set_config('manageurl', 'example.com/mediasite/mymediasite', 'mediasite');
+        set_config('manageurl', 'example.com/mediasite/mymediasite', util::M_SHORTNAME);
 
         // Mock the get_presentations call to avoid making actual API requests.
         // Since get_presentations is private, we test the public method that calls it.
@@ -97,7 +97,7 @@ final class util_test extends \advanced_testcase {
         $this->resetAfterTest(true);
 
         // Clear the manageurl config.
-        set_config('manageurl', '', 'mediasite');
+        set_config('manageurl', '', util::M_SHORTNAME);
 
         // This test is a placeholder for the actual integration test.
         $this->assertTrue(true, 'Placeholder test for manage URL exclusion');
