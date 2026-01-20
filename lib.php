@@ -105,31 +105,6 @@ class repository_mediasite extends repository {
     public static function type_config_form($mform, $classname = 'repository') {
         parent::type_config_form($mform, $classname);
 
-        /*
-
-        $basemediasiteurl = get_config(util::M_SHORTNAME, 'basemediasiteurl');
-        if (empty($basemediasiteurl)) {
-            $basemediasiteurl = '';
-        }
-
-        */
-
-        $sfapikey = get_config(util::M_SHORTNAME, 'sfapikey');
-        if (empty($sfapikey)) {
-            $sfapikey = '';
-        }
-
-        $authorization = get_config(util::M_SHORTNAME, 'authorization');
-        if (empty($authorization)) {
-            $authorization = '';
-        }
-
-        $manageurl = get_config(util::M_SHORTNAME, 'manageurl');
-        if (empty($manageurl)) {
-            $manageurl = 'domain.com/mediasite/mymediasite';
-        }
-    
-
         $mform->addElement(
             'text',
             'basemediasiteurl',
@@ -144,7 +119,7 @@ class repository_mediasite extends repository {
             'text',
             'sfapikey',
             get_string('sfapikey', util::M_COMPONENT),
-            ['value' => $sfapikey, 'size' => '40']
+            ['size' => '40']
         );
         $mform->setType('sfapikey', PARAM_RAW_TRIMMED);
         $mform->addRule('sfapikey', get_string('required'), 'required', null, 'client');
@@ -153,7 +128,7 @@ class repository_mediasite extends repository {
             'text',
             'authorization',
             get_string('authorization', util::M_COMPONENT),
-            ['value' => $authorization, 'size' => '40']
+            ['size' => '40']
         );
         $mform->setType('authorization', PARAM_RAW_TRIMMED);
         $mform->addRule('authorization', get_string('required'), 'required', null, 'client');
@@ -164,7 +139,7 @@ class repository_mediasite extends repository {
             'text',
             'manageurl',
             get_string('manageurl', util::M_COMPONENT),
-            ['value' => $manageurl, 'size' => '40']
+            ['size' => '40']
         );
         $mform->setType('manageurl', PARAM_RAW_TRIMMED);
         $mform->addElement('static', null, '', get_string('manageurl_help', util::M_COMPONENT));
